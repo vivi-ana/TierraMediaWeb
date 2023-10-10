@@ -5,6 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AplicationDbContext>(option  => option.UseSqlServer(builder.Configuration.GetConnectionString("TierraMediaContext") ?? throw new InvalidOperationException("Connection string 'TierraMediaContext' not found.")));
+builder.Services.AddAuthentication().AddCookie("MyCookieAuth", options =>
+{
+    options.Cookie.Name = "MyCookieAuth";
+});
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
