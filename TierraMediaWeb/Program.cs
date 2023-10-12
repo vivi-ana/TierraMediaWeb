@@ -14,8 +14,8 @@ builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", opt
 });
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("MustBelongToHrDepartment",
-        policy => policy.RequireClaim(ClaimTypes.Role, "1"));
+    options.AddPolicy("Admin",
+            policy => policy.RequireClaim(ClaimTypes.Role, "1"));
 });
 builder.Services.AddRazorPages();
 
@@ -34,8 +34,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 
