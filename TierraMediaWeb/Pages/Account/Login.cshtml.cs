@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using TierraMediaWeb.Data;
@@ -21,8 +20,8 @@ namespace TierraMediaWeb.Pages.Account
         public UserCredential UserCredential { get; set; }
         public async Task<UserCredential> AuthenticateUser(string username, string password)
         {
-            var succeeded = await _context.UserCredential.FirstOrDefaultAsync(authUser => authUser.User == username && authUser.Password == password);
-            return succeeded;
+            var userCredential = await _context.UserCredential.FirstOrDefaultAsync(authUser => authUser.User == username && authUser.Password == password);
+			return userCredential;
         }
 
         public void OnGet()
@@ -30,15 +29,15 @@ namespace TierraMediaWeb.Pages.Account
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            var issuccess = AuthenticateUser(UserCredential.User, UserCredential.Password);
+            var userCredential = AuthenticateUser(UserCredential.User, UserCredential.Password);
             if (!ModelState.IsValid) return Page();
-            if (issuccess.Result != null)
+            if (userCredential!= null)
             {
-                var claims = new List<Claim>
+				var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, "admin"),
-                    new Claim(ClaimTypes.Email, "admin@mywebside.com")
-                };
+                    new Claim(ClaimTypes.Name, userCredential.Result.User),
+                    new Claim(ClaimTypes.Role, userCredential.Result.Role.ToString())
+			};
                 var identity = new ClaimsIdentity(claims, "MyCookieAuth");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync("MyCookieAuth", claimsPrincipal);
