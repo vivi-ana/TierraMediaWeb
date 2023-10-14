@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TierraMediaWeb.Pages.Account;
+using TierraMediaWeb.Models;
 
 namespace TierraMediaWeb.Data
 {

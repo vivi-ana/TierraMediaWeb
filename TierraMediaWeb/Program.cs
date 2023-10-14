@@ -1,21 +1,28 @@
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TierraMediaWeb.Data;
+using TierraMediaWeb.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AplicationDbContext>(option  => option.UseSqlServer(builder.Configuration.GetConnectionString("TierraMediaContext") ?? throw new InvalidOperationException("Connection string 'TierraMediaContext' not found.")));
+builder.Services.AddDbContext<AplicationDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("TierraMediaContext") ?? throw new InvalidOperationException("Connection string 'TierraMediaContext' not found.")));
 builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
 {
     options.Cookie.Name = "MyCookieAuth";
-	options.LoginPath = "/";
+    options.LoginPath = "/";
     options.AccessDeniedPath = "/Error";
 });
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin",
-            policy => policy.RequireClaim(ClaimTypes.Role, "1"));
+        policy => policy.RequireClaim(ClaimTypes.Role, RoleType.Admin.ToString()));
+    options.AddPolicy("Client",
+        policy => policy.RequireClaim(ClaimTypes.Role, RoleType.Client.ToString()));
+    options.AddPolicy("AdminOrClient", policy =>
+    {
+        policy.RequireRole("1", "2");
+    });
 });
 builder.Services.AddRazorPages();
 

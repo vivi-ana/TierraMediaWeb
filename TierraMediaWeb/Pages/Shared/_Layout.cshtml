@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+@using TierraMediaWeb.Models;
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -21,6 +23,21 @@
 					<ul class="navbar-nav flex-grow-1">
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+						</li>
+						@if (User.HasClaim(ClaimTypes.Role, ((int)RoleType.Client).ToString()))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-page="/Index">Resume</a>
+							</li>
+						}
+						@if (User.HasClaim(ClaimTypes.Role, ((int)RoleType.Admin).ToString()))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-page="/Index">Manage</a>
+							</li>
+						}
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-page="/Index">Us</a>
 						</li>
 					</ul>
 				</div>

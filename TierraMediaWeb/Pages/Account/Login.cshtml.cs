@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using TierraMediaWeb.Data;
+using TierraMediaWeb.Models;
 
 namespace TierraMediaWeb.Pages.Account
 {
@@ -53,16 +52,4 @@ namespace TierraMediaWeb.Pages.Account
             }
         }
     }
-}
-public class UserCredential
-{
-    [Key]
-    public string? Id { get; set; }
-
-    [Required(ErrorMessage = "This field is required.")]
-    public string User { get; set; }
-
-    [Required(ErrorMessage = "This field is required.")]
-    public string Password { get; set; }
-    public int Role { get; set; }
 }
