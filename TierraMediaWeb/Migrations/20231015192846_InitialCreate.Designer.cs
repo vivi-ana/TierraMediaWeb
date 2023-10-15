@@ -11,8 +11,8 @@ using TierraMediaWeb.Data;
 namespace TierraMediaWeb.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20231009151029_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20231015192846_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,25 +24,26 @@ namespace TierraMediaWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TierraMediaWeb.Pages.Account.LoginModel+UserCredential", b =>
+            modelBuilder.Entity("TierraMediaWeb.Models.UserCredential", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id_user")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id_user"));
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("User")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id_user");
 
                     b.ToTable("UserCredential");
                 });

@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TierraMediaWeb.Models
 {
 	public class UserCredential
 	{
 		[Key]
-		public string? Id { get; set; }
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id_user { get; set; }
 
 		[Required(ErrorMessage = "This field is required.")]
 		public string User { get; set; }
