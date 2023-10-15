@@ -27,17 +27,17 @@
 						@if (User.HasClaim(ClaimTypes.Role, ((int)RoleType.Client).ToString()))
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-page="/Index">Resume</a>
+								<a class="nav-link text-dark" asp-area="" asp-page="/Resume/Resume">Resume</a>
 							</li>
 						}
 						@if (User.HasClaim(ClaimTypes.Role, ((int)RoleType.Admin).ToString()))
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-page="/Index">Manage</a>
+								<a class="nav-link text-dark" asp-area="" asp-page="/Manage/Manage">Manage</a>
 							</li>
 						}
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-page="/Index">Us</a>
+							<a class="nav-link text-dark" asp-area="" asp-page="/Us">Us</a>
 						</li>
 					</ul>
 				</div>

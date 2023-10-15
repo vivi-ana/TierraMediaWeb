@@ -47,3 +47,8 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+//Index los dos
+//  Resume cliente
+//Mangage admin
+//US los dos
+//falta los saldos del user desplegable
