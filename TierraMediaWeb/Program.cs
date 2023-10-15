@@ -16,12 +16,12 @@ builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", opt
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin",
-        policy => policy.RequireClaim(ClaimTypes.Role, RoleType.Admin.ToString()));
+        policy => policy.RequireClaim(ClaimTypes.Role, ((int)RoleType.Admin).ToString()));
     options.AddPolicy("Client",
-        policy => policy.RequireClaim(ClaimTypes.Role, RoleType.Client.ToString()));
+        policy => policy.RequireClaim(ClaimTypes.Role, ((int)RoleType.Client).ToString()));
     options.AddPolicy("AdminOrClient", policy =>
     {
-        policy.RequireRole("1", "2");
+        policy.RequireRole(((int)RoleType.Admin).ToString(), ((int)RoleType.Client).ToString());
     });
 });
 builder.Services.AddRazorPages();
